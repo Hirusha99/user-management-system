@@ -2,12 +2,17 @@ import User from "../models/user";
 
 interface UserManagementTableProps {
   users: User[];
-  editUser: (user: User) => void;
   deleteUser: (user: User) => void;
   onModalOpen: () => void;
+  setCurrentUser: (value: React.SetStateAction<User | undefined>) => void;
 }
 
-const UserManagementTable = ({users,editUser,deleteUser,onModalOpen}: UserManagementTableProps) => {
+const UserManagementTable = ({
+  users,
+  setCurrentUser,
+  deleteUser,
+  onModalOpen,
+}: UserManagementTableProps) => {
   return (
     <div className="mr-4">
       <table className="table table-hover text-center m-4">
@@ -30,6 +35,7 @@ const UserManagementTable = ({users,editUser,deleteUser,onModalOpen}: UserManage
                   className="btn btn-warning m-1"
                   onClick={() => {
                     onModalOpen();
+                    setCurrentUser(user);
                   }}
                 >
                   Edit

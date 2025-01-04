@@ -3,21 +3,24 @@ import User from "../models/user";
 
 interface UserFormProps {
   addUser: (user: User) => void;
-  
+  editUser: (user: User) => void;
+  initialValues: User | undefined;
 }
 
-const UserForm = ({ addUser }: UserFormProps) => {
-  const [user, setUser] = useState({ id: 1, name: "", dob: "" });
+const UserForm = ({ addUser, editUser, initialValues }: UserFormProps) => {
+  const [user, setUser] = useState(
+    initialValues ? initialValues : { id: 1, name: "", dob: "" }
+  );
 
   const onChange = (event: any) => {
     const { name, value } = event.target;
-    console.log(name);
-    console.log(value);
+
     setUser((prev) => ({ ...prev, [name]: value }));
   };
 
   const submitUser = (user: User) => {
-    addUser(user);
+    initialValues ? editUser(user) : addUser(user);
+
     setUser({ id: 1, name: "", dob: "" });
   };
 
